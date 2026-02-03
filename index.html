@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Menú Alfarera del Maíz</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Open+Sans:wght@400;600;800&display=swap');
+
+    :root {
+        --primary: #c0392b; /* Rojo */
+        --secondary: #d35400; /* Naranja quemado */
+        --accent: #f1c40f; /* Amarillo */
+        --dark: #2c3e50;
+        --bg: #fdfbf7;
+        --card-bg: #ffffff;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: var(--bg);
+        margin: 0;
+        padding: 0;
+        color: var(--dark);
+        line-height: 1.6;
+    }
+
+    /* ENCABEZADO CON DEGRADADO */
+    .header {
+        background: linear-gradient(135deg, #c0392b, #d35400);
+        padding: 40px 20px 30px 20px;
+        text-align: center;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3);
+        margin-bottom: 30px;
+        color: white;
+    }
+
+    .logo-container {
+        width: 140px;
+        height: 140px;
+        background-color: white;
+        border-radius: 50%;
+        margin: 0 auto 15px auto;
+        padding: 5px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .logo-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    h1 {
+        font-family: 'Merriweather', serif;
+        font-size: 1.8em;
+        margin: 0;
+        text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+        line-height: 1.2;
+    }
+    
+    .subtitle {
+        font-family: 'Merriweather', serif;
+        font-style: italic;
+        font-size: 0.9em;
+        opacity: 0.9;
+        margin-top: 5px;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .container {
+        max-width: 600px; /* Ancho máximo ideal para lectura */
+        margin: 0 auto;
+        padding: 0 15px 80px 15px; /* Padding extra abajo para el botón flotante */
+    }
+
+    /* TARJETAS DE SECCIÓN */
+    .menu-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .category-title {
+        color: var(--secondary);
+        font-family: 'Merriweather', serif;
+        font-size: 1.3em;
+        border-bottom: 3px solid var(--accent);
+        display: inline-block;
+        margin-bottom: 20px;
+        padding-bottom: 5px;
+    }
+
+    /* ITEMS DEL MENÚ */
+    .menu-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Alineación superior por si el texto es largo */
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #eee;
+    }
+
+    .menu-item:last-child {
+        border-bottom: none;
+    }
+
+    .item-info {
+        flex: 1;
+        padding-right: 10px;
+    }
+
+    .item-name {
+        font-weight: 700;
+        font-size: 1.05em;
+        display: block;
+        color: #333;
+    }
+
+    .item-desc {
+        font-size: 0.85em;
+        color: #777;
+        font-style: italic;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .price {
+        font-weight: 800;
+        color: var(--primary);
+        font-size: 1.1em;
+        white-space: nowrap; /* Evita que el precio se parta */
+        background: #fff5f5;
+        padding: 2px 8px;
+        border-radius: 8px;
+    }
+
+    /* CAJA DESTACADA */
+    .highlight-box {
+        background-color: #fff8e1;
+        border-left: 5px solid var(--accent);
+        color: #7f6000;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        font-size: 0.95em;
+        line-height: 1.5;
+    }
+    
+    .highlight-title {
+        font-weight: 800;
+        display: block;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        color: #d35400;
+    }
+
+    /* FOOTER Y BOTÓN FLOTANTE */
+    .footer {
+        text-align: center;
+        margin-top: 40px;
+        color: #888;
+        font-size: 0.9em;
+        padding-bottom: 20px;
+    }
+
+    /* Botón flotante para llamar (ideal para móviles) */
+    .floating-call-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #27ae60;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: bold;
+        box-shadow: 0 5px 20px rgba(39, 174, 96, 0.4);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 100;
+        transition: transform 0.2s;
+        width: max-content;
+    }
+
+    .floating-call-btn:active {
+        transform: translateX(-50%) scale(0.95);
+    }
+
+    @media (min-width: 768px) {
+        .container {
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .header, .footer, .full-width {
+            grid-column: span 2;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Logo Alfarera">
+        </div>
+        <h1>Alfarera del Maíz</h1>
+        <div class="subtitle">Tradición Mexicana</div>
+    </div>
+
+    <div class="container">
+        
+        <div class="menu-card">
+            <div class="category-title">🥣 Desayunos y Caldos</div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Orden de tacos dorados</span>
+                </div>
+                <div class="price">$100</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Caldo de Pollo</span>
+                </div>
+                <div class="price">$100</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Caldo Especial</span>
+                    <span class="item-desc">Incluye 3 tacos dorados de pollo</span>
+                </div>
+                <div class="price">$120</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Huevos al gusto</span></div>
+                <div class="price">$100</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Chilaquiles rojos</span></div>
+                <div class="price">$140</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Nachos de asada o pastor</span>
+                    <span class="item-desc">Opción mixta disponible</span>
+                </div>
+                <div class="price">$155</div> 
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Tortas</span>
+                    <span class="item-desc">Sencillas / Mixtas ($55)</span>
+                </div>
+                <div class="price">$50</div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <div class="category-title">🌮 Antojitos</div>
+            
+            <div class="highlight-box">
+                <span class="highlight-title">Elige tu proteína:</span>
+                Pollo asado al carbón • Carne asada al carbón • Pastor • Molida
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Huarache</span></div>
+                <div class="price">$60</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Sopes</span>
+                    <span class="item-desc">Con queso de bola (+$2)</span>
+                </div>
+                <div class="price">$28-$30</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Panucho o Salbut</span></div>
+                <div class="price">$25</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Tostada</span>
+                    <span class="item-desc">Lleva Queso de Bola</span>
+                </div>
+                <div class="price">$28</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Empanadas</span>
+                    <span class="item-desc">Queso de hebra, bola o mixtas</span>
+                </div>
+                <div class="price">$30</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Taco (maíz o harina)</span>
+                    <span class="item-desc">Especiales jamón y queso ($30)</span>
+                </div>
+                <div class="price">$25</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Gringas</span>
+                    <span class="item-desc">Mini gringa ($28)</span>
+                </div>
+                <div class="price">$50</div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <div class="category-title">🍔 Hamburguesas</div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Clásica</span></div>
+                <div class="price">$70</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Al Pastor / Alfarera</span></div>
+                <div class="price">$95</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">De la Casa / Doble Carne</span></div>
+                <div class="price">$95</div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <div class="category-title">🧀 Quekas (Quesadillas)</div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Sencillas</span></div>
+                <div class="price">$50</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Mixtas</span></div>
+                <div class="price">$60</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Especiales</span></div>
+                <div class="price">$70</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Chilindrinas</span></div>
+                <div class="price">$30</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Orden de 3</span>
+                    <span class="item-desc">Harina con jamón y queso</span>
+                </div>
+                <div class="price">$60</div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <div class="category-title">🔥 Especialidades</div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">CALDO MEGAESPECIAL</span></div>
+                <div class="price">$150</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">TAPA-ARTERIAS</span></div>
+                <div class="price">$150</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Papas a la francesa</span></div>
+                <div class="price">$70</div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <div class="category-title">🥤 Bebidas</div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Café</span>
+                    <span class="item-desc">Rellenable ilimitado</span>
+                </div>
+                <div class="price">$30</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Cocas 600ml</span></div>
+                <div class="price">$30</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info"><span class="item-name">Aguas de fruta</span></div>
+                <div class="price">$40</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <span class="item-name">Licuados</span>
+                    <span class="item-desc">Fresa ($70)</span>
+                </div>
+                <div class="price">$60</div>
+            </div>
+        </div>
+
+        <div class="footer full-width">
+            <p>Servicio a domicilio +$25 pesos</p>
+            <p><strong>¡Gracias por tu visita!</strong></p>
+            <br><br>
+        </div>
+
+    </div>
+
+    <a href="https://api.whatsapp.com/send/?phone=529831352642&text&type=phone_number&app_absent=0" class="floating-call-btn">
+        📞 Ordenar: 983 135 2642
+    </a>
+
+</body>
+</html>
